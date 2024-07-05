@@ -15,8 +15,14 @@ const findAProduct=async(id:String)=>{
 return result;
 }
 
+const updateAProductById=async(id:String,projection:Object)=>{
+const result= await productCollection.findByIdAndUpdate(id,projection);
+return result
+}
+
 export const productService={
     postAProduct,
     findAllProducts,
     findAProduct,
+    updateAProductById
 }
