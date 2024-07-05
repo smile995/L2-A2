@@ -10,7 +10,13 @@ const result= await productCollection.find();
 return result;
 }
 
+const findAProduct=async(id:String)=>{
+ const result= await productCollection.findById({_id:id})
+return result;
+}
+
 export const productService={
     postAProduct,
-    findAllProducts
+    findAllProducts,
+    findAProduct,
 }

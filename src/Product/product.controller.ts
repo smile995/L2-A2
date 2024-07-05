@@ -23,17 +23,32 @@ const findAllProduct = async (req: Request, res: Response) => {
         const result = await productService.findAllProducts();
         res.status(200).json({
             "success": true,
-    "message": "Products fetched successfully!",
-    "data":result
+            "message": "Products fetched successfully!",
+            "data": result
         })
-    }catch(error){
+    } catch (error) {
         console.log(error);
-        
+
+    }
+}
+
+const findAProductUsingId = async (req: Request, res: Response) => {
+    try {
+        const { productId } = req.params;
+        const result = await productService.findAProduct(productId);
+        res.status(200).json({
+            "success": true,
+            "message": "Product fetched successfully!",
+            "data": result
+        })
+    } catch (error) {
+        console.log(error);
+
     }
 }
 
 
 export const productController = {
     productPostController,
-    findAllProduct
+    findAllProduct, findAProductUsingId
 }
