@@ -13,7 +13,7 @@ export type Product = {
     price: number;
     category: string;
     tags: string[];
-    variants: variants[]; 
+    variants: [variants]; 
     inventory: inventory;
 };
 
