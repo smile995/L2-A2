@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { productService } from "./product.services";
 
+// create a post  oparation
 const productPostController = async (req: Request, res: Response) => {
     try {
         const data = req.body;
@@ -16,7 +17,7 @@ const productPostController = async (req: Request, res: Response) => {
     }
 
 }
-
+// finding all products from database
 const findAllProduct = async (req: Request, res: Response) => {
     try {
 
@@ -31,7 +32,7 @@ const findAllProduct = async (req: Request, res: Response) => {
 
     }
 }
-
+// finding a product using id
 const findAProductUsingId = async (req: Request, res: Response) => {
     try {
         const { productId } = req.params;
@@ -47,8 +48,9 @@ const findAProductUsingId = async (req: Request, res: Response) => {
     }
 }
 
-
+// update a product using id
 export const productController = {
     productPostController,
-    findAllProduct, findAProductUsingId
+    findAllProduct,
+     findAProductUsingId,
 }
