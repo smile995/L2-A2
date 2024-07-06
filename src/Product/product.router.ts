@@ -6,6 +6,7 @@ router.post("/",productController.productPostController);
 router.get("/",productController.findAllProduct);
 router.get("/:productId",productController.findAProductUsingId)
 router.put("/:updateId",productController.updateAProduct)
+router.delete("/:deleteId",productController.deleteProductById)
 
 
 

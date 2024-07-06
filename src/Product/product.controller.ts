@@ -69,9 +69,17 @@ const updateAProduct = async (req: Request, res: Response) => {
         "data":result
     })
 }
+
+// delete a product from database using the id
+const deleteProductById=async(req:Request,res:Response)=>{
+const {deleteId}=req.params;
+const deleteProduct =await productService.deleteAProductFromDB(deleteId)
+res.json(deleteProduct)
+}
 export const productController = {
     productPostController,
     findAllProduct,
     findAProductUsingId,
-    updateAProduct
+    updateAProduct,
+    deleteProductById
 }
