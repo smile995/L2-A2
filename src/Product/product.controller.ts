@@ -51,22 +51,23 @@ const findAProductUsingId = async (req: Request, res: Response) => {
 // update a product using id
 
 const updateAProduct = async (req: Request, res: Response) => {
-    const {productId} = req.params
-    const name = req.body.name;
-    const price = req.body.price;
-    const description = req.body.description;
-    const category = req.body.category;
-    const projection = {
-        productId,
-        name,
-        price,
-        description,
-        category
-    }
-console.log(projection);
+    const { updateId } = req.params
+    const updatePrice = req.body.price;
+    const updateDescription = req.body.description;
+    const updateName = req.body.name;
+    const updateCategory = req.body.category;
 
-    const result= await productService.updateAProductById(productId,projection)
-    res.json({result})
+    const result = await productService.updateAProductById(updateId, {
+        name: updateName,
+        price: updatePrice,
+        category: updateCategory,
+        description: updateDescription
+    })
+    res.status(200).json({
+        "success": true,
+        "message": "Product updated successfully!",
+        "data":result
+    })
 }
 export const productController = {
     productPostController,
