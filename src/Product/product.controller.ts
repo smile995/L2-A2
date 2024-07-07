@@ -14,7 +14,7 @@ const productPostController = async (req: Request, res: Response) => {
     } catch (error) {
         res.json({
             "success": false,
-            "message": "Oops! Product created unsuccessful!" || error,
+            "message": "Oops! Product created unsuccessful!",
 
         })
     }
@@ -80,7 +80,7 @@ const updateAProduct = async (req: Request, res: Response) => {
         res.status(400).json({
             "success": true,
             "message": "Sorry! Product not updated successfully!",
-          
+
         })
     }
 }
@@ -107,13 +107,25 @@ const deleteProductById = async (req: Request, res: Response) => {
 // searching a product using the searching query
 
 const searchProductByName = async (req: Request, res: Response) => {
-    const search=req.query.searchTerm as string;
-    const SMsearch= search?.toLocaleString()as string;
-    const result= await productService.searchProductByName(SMsearch)
-    res.json({
-        result
-    })
+    try {
+        const search = req.query.searchTerm as string;
+        const SMsearch = search?.toLocaleString() as string;
+        const result = await productService.searchProductByName(SMsearch)
+        res.status(200).json({
+            "success": true,
+            "message": `Products matching search term ${search} fetched successfully!`,
+            "data": result
 
+        })
+    }
+    catch (error: unknown) {
+        res.status(400).json({
+            "success": false,
+            "message": "Products not found"
+
+
+        })
+    }
 
 }
 export const productController = {
