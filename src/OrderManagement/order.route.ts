@@ -5,6 +5,7 @@ const router= express.Router();
 // posting a order
 router.post("/",orderController.orderPosting);
 router.get("/",orderController.getAllOrder);
+router.get("/search",orderController.findByEmail);
 
 
 

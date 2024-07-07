@@ -13,7 +13,14 @@ const result =await OrderManagement.find();
 return result
 }
 
+// finding a order by email
+const findBySearchingEmail=async(email:string)=>{
+const result= await OrderManagement.find({email})
+return result
+}
+
 export const orderServices={
     postingAOrder,
-    getAllOrder
+    getAllOrder,
+    findBySearchingEmail
 }
