@@ -26,10 +26,22 @@ const deleteAProductFromDB = async (id: String) => {
 
 }
 
+const searchProductByName = async (search: string) => {
+    const allProduct = await productCollection.find();
+    const result = allProduct.filter(product =>
+        product.name.toLowerCase().includes(search)
+
+    )
+
+
+    return result
+}
+
 export const productService = {
     postAProduct,
     findAllProducts,
     findAProduct,
     updateAProductById,
-    deleteAProductFromDB
+    deleteAProductFromDB,
+    searchProductByName
 }

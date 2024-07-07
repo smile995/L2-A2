@@ -38,9 +38,20 @@ const getAllOrder = async (req: Request, res: Response) => {
 // finding order using order
 
 const findByEmail = async (req: Request, res: Response) => {
-    const {email}=req.query
-    const result= await orderServices.findBySearchingEmail(email as string);
-    res.json({result})
+    try {
+        const { email } = req.query
+        const result = await orderServices.findBySearchingEmail(email as string);
+        res.status(200).json({
+            "success": true,
+            "message": "Orders fetched successfully for user email!",
+            "data": result
+        })
+    } catch {
+        res.status(400).json({
+            "success": false,
+            "message": "Order not found"
+        })
+    }
 
 }
 

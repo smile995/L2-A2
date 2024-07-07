@@ -12,10 +12,12 @@ const productPostController = async (req: Request, res: Response) => {
             "data": result
         })
     } catch (error) {
-        console.log(error);
+        res.json({
+            "success": false,
+            "message": "Oops! Product created unsuccessful!" || error,
 
+        })
     }
-
 }
 // finding all products from database
 const findAllProduct = async (req: Request, res: Response) => {
@@ -28,8 +30,11 @@ const findAllProduct = async (req: Request, res: Response) => {
             "data": result
         })
     } catch (error) {
-        console.log(error);
+        res.json({
+            "success": false,
+            "message": "Sorry! Product created unsuccessful!" || error
 
+        })
     }
 }
 // finding a product using id
@@ -43,47 +48,79 @@ const findAProductUsingId = async (req: Request, res: Response) => {
             "data": result
         })
     } catch (error) {
-        console.log(error);
-
+        res.status(400).json({
+            "success": false,
+            "message": "Product fetched successfully!" || error
+        })
     }
 }
 
 // update a product using id
 
 const updateAProduct = async (req: Request, res: Response) => {
-    const { updateId } = req.params
-    const updatePrice = req.body.price;
-    const updateDescription = req.body.description;
-    const updateName = req.body.name;
-    const updateCategory = req.body.category;
+    try {
+        const { updateId } = req.params
+        const updatePrice = req.body.price;
+        const updateDescription = req.body.description;
+        const updateName = req.body.name;
+        const updateCategory = req.body.category;
 
-    const result = await productService.updateAProductById(updateId, {
-        name: updateName,
-        price: updatePrice,
-        category: updateCategory,
-        description: updateDescription
-    })
-    res.status(200).json({
-        "success": true,
-        "message": "Product updated successfully!",
-        "data": result
-    })
+        const result = await productService.updateAProductById(updateId, {
+            name: updateName,
+            price: updatePrice,
+            category: updateCategory,
+            description: updateDescription
+        })
+        res.status(200).json({
+            "success": true,
+            "message": "Product updated successfully!",
+            "data": result
+        })
+    } catch (error) {
+        res.status(400).json({
+            "success": true,
+            "message": "Sorry! Product not updated successfully!",
+          
+        })
+    }
 }
 
 // delete a product from database using the id
 const deleteProductById = async (req: Request, res: Response) => {
-    const { deleteId } = req.params;
-    const deleteProduct = await productService.deleteAProductFromDB(deleteId)
+    try {
+        const { deleteId } = req.params;
+        const deleteProduct = await productService.deleteAProductFromDB(deleteId)
+        res.json({
+            "success": true,
+            "message": "Product deleted successfully!",
+            "data": null
+        })
+    } catch {
+        res.status(400).json({
+            "success": false,
+            "message": "Something went wrong",
+
+        })
+    }
+}
+
+// searching a product using the searching query
+
+const searchProductByName = async (req: Request, res: Response) => {
+    const search=req.query.searchTerm as string;
+    const SMsearch= search?.toLocaleString()as string;
+    const result= await productService.searchProductByName(SMsearch)
     res.json({
-        "success": true,
-        "message": "Product deleted successfully!",
-        "data": null
+        result
     })
+
+
 }
 export const productController = {
     productPostController,
     findAllProduct,
     findAProductUsingId,
     updateAProduct,
-    deleteProductById
+    deleteProductById,
+    searchProductByName
 }
